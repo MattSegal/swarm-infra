@@ -1,0 +1,113 @@
+---
+- hosts: ecs-host
+  # Amazon Linux AMI 2017, like RHEL Fedora
+  remote_user: root
+  tasks:
+    - name: Test connection
+      ping:
+
+    # NGINX
+    - name: Install nginx
+      yum:
+        name: nginx
+        state: present
+    - name: Sites Available
+      file:
+        state: directory
+        path: /etc/nginx/sites-available/
+        owner: root
+        group: root
+    - name: Sites Enabled
+      file:
+        state: directory
+        path: /etc/nginx/sites-enabled/
+        owner: root
+        group: root
+    - name: Copy nginx config
+      copy:
+        src: ./files/nginx/nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: 0644
+    - name: Copy website config
+      copy:
+        src: ./files/nginx/website
+        dest: /etc/nginx/sites-available/website
+        owner: root
+        group: root
+        mode: 0644
+    - name: Symlink website config
+      file:
+        src: /etc/nginx/sites-available/website
+        dest: /etc/nginx/sites-enabled/website
+        owner: root
+        group: root
+        state: link
+    - name: Remove default config
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+# - hosts: database
+#   # Ubuntu
+#   remote_user: root
+#   tasks:
+#     - include_vars: ./secrets.yml
+#     - name: Test connection
+#       ping:
+
+#     - name: Update apt cache
+#       apt: update_cache=yes
+
+#     # TODO Fail2Ban
+
+#     # Postgres
+#     - name: Install PostgreSQL
+#       apt: name={{ item }} state=present
+#       with_items:
+#         - postgresql
+#         - postgresql-contrib
+#         - libpq-dev
+#         - python3-dev
+#         - python3-psycopg2
+#     - name: Copy postgresql config
+#       copy:
+#         src: ./files/postgres/postgresql.conf
+#         dest: /etc/postgresql/9.5/main/postgresql.conf
+#         owner: postgres
+#         group: postgres
+#         mode: 0644
+#     - name: Copy hosts config
+#       copy:
+#         src: ./files/postgres/pg_hba.conf
+#         dest: /etc/postgresql/9.5/main/pg_hba.conf
+#         owner: postgres
+#         group: postgres
+#         mode: 0640
+
+#     - name: Setup reddit user
+#       become: true
+#       become_user: postgres
+#       postgresql_user:
+#         name: "{{ db_user_reddit }}"
+#         password: "{{ db_password_reddit }}"
+#     - name: Setup reddit database
+#       become: true
+#       become_user: postgres
+#       postgresql_db:
+#         name: reddit
+#         state: present
+#         owner: "{{ db_user_reddit }}"
+#         port: 5432
+#         lc_collate: en_US.UTF-8
+#         lc_ctype: en_US.UTF-8
+
+#     - name: Restart postgresql
+#       service:
+#         name: postgresql
+#         state: restarted
