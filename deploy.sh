@@ -1,4 +1,5 @@
 #!/bin/bash
+# Deploy a git repositry to the host server
 HOST='167.99.78.141'
 
 set -e

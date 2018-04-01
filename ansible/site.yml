@@ -116,5 +116,52 @@
         line: 'REDDIT_DB_HOST="167.99.78.141"'
     - lineinfile:
         path: /etc/environment
-        regexp: '^DEBUG'
-        line: 'DEBUG=""'
+        regexp: '^AWS_ACCESS_KEY_ID'
+        line: 'AWS_ACCESS_KEY_ID="{{ aws_access_key_id }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^AWS_SECRET_ACCESS_KEY'
+        line: 'AWS_SECRET_ACCESS_KEY="{{ aws_secret_access_key }}"'
+
+    # Folder Structure
+    - name: Repo folder
+      file:
+        state: directory
+        path: /root/repos
+        owner: root
+        group: root
+    - name: Host scripts folder
+      file:
+        state: directory
+        path: /root/scripts
+        owner: root
+        group: root
+    - name: Database backups folder
+      file:
+        state: directory
+        path: /root/backups
+        owner: root
+        group: root
+
+    # Scripts
+    - name: Copy database backup script
+      copy:
+        src: ../host-scripts/backup-db.sh
+        dest: /root/scripts/
+        owner: root
+        group: root
+        mode: 744
+
+    # AWS CLI
+    - name: Install pip
+      apt:
+        name: python3-pip
+        state: present
+    - pip:
+        name: awscli
+        executable: pip3
+
+    - name: Reddit database backup job
+      cron:
+        hour: 0
+        job: /root/scripts/backup-db.sh reddit

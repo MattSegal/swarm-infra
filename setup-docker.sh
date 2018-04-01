@@ -1,4 +1,5 @@
 # Setup docker and docker-compose
+# TODO: Move this into Ansible
 apt update
 apt install \
     apt-transport-https \

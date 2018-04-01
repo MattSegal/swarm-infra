@@ -4,74 +4,36 @@ This repo describes the infrastructure I'm using for my personal projects
 
 ##Overview
 
-Requires minikube and kubectl as described in https://github.com/kubernetes/minikube
+A single DigitalOcean droplet runs:
 
-Use minikube as the local docker registry
+- NGINX server
+- Postgres database
+- Docker swarm
+- Docker registry
 
-	minikube start
-	eval $(minikube docker-env)
-	docker build -t reddit_web .
+##Docker Registry
 
-to run a docker registry
+To run a docker registry
 
 	docker run -d -p 5000:5000 --name registry registry:2
 
+It uses a docker volume somewhere to store the built containers. Hopefully this doesn't chew through all my disk space.
 
-pod
-	- group of co-located containers
+##Docker Swarm
 
-	kubectl apply -f ~/code/reddit/deployment.yml
-	kubectl get deployments
-	kubectl get pods
-	kubectl describe pod XXXXX
-	kubectl logs XXXXXX
-	kubectl exec -it XXXXX -- bash
-	kubectl delete deployment,svc reddit
-	curl $(minikube ip):31704
+Docker swarm hosts the application containers as 'stacks', generated from a docker-compose file. Web containers publish a static port for NGINX.
 
+To deploy an application
 
-###Elastic Container Service:
-
-This server is configured using Amazon's point-and click interface.
-
-- size: t2.micro (~$10 / mo)
-- ami: whatever amazon wants
-- ip: 13.210.35.9
-- id: wizard.pem
-- vpc: vpc-9816a7ff
-- subnet: subnet-6bd4a50c
-- internal ip: 10.0.1.31
-- container repo: 535254746276.dkr.ecr.ap-southeast-2.amazonaws.com
-    - reddit
-
-    ssh -i ~/.ssh/wizard.pem ec2-user@13.210.35.9
-
-
+	    ./deploy.sh $APP_NAME
 
 ###NGINX
 
-NGINX is installed on the EC2 instance that hosts ECS. It uses static port mapping to route requests to containers:
-
-```
-SERVICE 	EXTERNAL PORT	INTERNAL PORT 	CONTAINER PORT
-
-reddit		80				8000			8000
-```
+NGINX is installed on the host server. It uses static port mapping to route requests to containers.
 
 ###Database:
 
-This is an EC2 t2.nano image.
-
-- size: t2.nano (~$5 / mo)
-- storage: 8GB SSD
-- ami: Ubuntu 16.04
-- ip: 13.55.127.139
-- vpc: vpc-9816a7ff
-- subnet: subnet-6bd4a50c
-- internal ip: 10.0.1.135
-- id: wizard.pem
-
-    ssh root@13.55.127.139
+Postgres is installed on the host server. Each service has its own database. Backups are taken daily and stored in S3.
 
 To acces psql
 
@@ -83,13 +45,12 @@ To acces psql
 
 Ansible config lives in `ansible/`
 
-Ansible current deploys postgres to the db server and NGINX to the ECS server.
+Ansible currently configures postgres and NGINX on the host server.
 
 To encrypt secrets:
 
-    cp secrets.secret.yml secrets.yml
-    ansible-vault encrypt secrets.yml --vault-password-file ~/.vault-pass.txt
+	./encrypt-secrets.sh
 
 To deploy with secrets
 
-    ./deploy.sh
+    ./configure.sh
