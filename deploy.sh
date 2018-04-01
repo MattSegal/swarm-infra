@@ -1,5 +1,12 @@
 #!/bin/bash
-ansible-playbook \
-	--vault-password-file ~/.vault-pass.txt \
-	--inventory ./ansible/hosts \
-	./ansible/site.yml
+HOST='167.99.78.141'
+
+set -e
+if [[ $# -ne 1 ]]; then
+    echo "ERROR: Expecting 1 command line argument."
+    exit 1
+fi
+REPO="$1"
+
+scp ./host-scripts/deploy.sh root@$HOST:/root/scripts/
+ssh root@$HOST /root/scripts/deploy.sh $REPO

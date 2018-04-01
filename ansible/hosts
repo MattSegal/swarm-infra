@@ -1,4 +1,3 @@
-[database]
-13.55.127.139 ansible_python_interpreter=/usr/bin/python3
-[ecs-host]
-13.211.141.200
+[swarm]
+167.99.78.141
+

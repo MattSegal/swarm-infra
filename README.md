@@ -4,21 +4,48 @@ This repo describes the infrastructure I'm using for my personal projects
 
 ##Overview
 
+Requires minikube and kubectl as described in https://github.com/kubernetes/minikube
+
+Use minikube as the local docker registry
+
+	minikube start
+	eval $(minikube docker-env)
+	docker build -t reddit_web .
+
+to run a docker registry
+
+	docker run -d -p 5000:5000 --name registry registry:2
+
+
+pod
+	- group of co-located containers
+
+	kubectl apply -f ~/code/reddit/deployment.yml
+	kubectl get deployments
+	kubectl get pods
+	kubectl describe pod XXXXX
+	kubectl logs XXXXXX
+	kubectl exec -it XXXXX -- bash
+	kubectl delete deployment,svc reddit
+	curl $(minikube ip):31704
+
+
 ###Elastic Container Service:
 
 This server is configured using Amazon's point-and click interface.
 
 - size: t2.micro (~$10 / mo)
 - ami: whatever amazon wants
-- ip: 13.211.141.200
+- ip: 13.210.35.9
 - id: wizard.pem
 - vpc: vpc-9816a7ff
 - subnet: subnet-6bd4a50c
-- internal ip: 10.0.1.163
+- internal ip: 10.0.1.31
 - container repo: 535254746276.dkr.ecr.ap-southeast-2.amazonaws.com
     - reddit
 
-    ssh -i ~/.ssh/wizard.pem ec2-user@13.211.141.200
+    ssh -i ~/.ssh/wizard.pem ec2-user@13.210.35.9
+
 
 
 ###NGINX
