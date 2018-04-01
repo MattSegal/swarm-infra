@@ -1,8 +1,8 @@
-#Infra
+# Swarm Infrastructure
 
 This repo describes the infrastructure I'm using for my personal projects
 
-##Overview
+## Overview
 
 A single DigitalOcean droplet runs:
 
@@ -11,7 +11,7 @@ A single DigitalOcean droplet runs:
 - Docker swarm
 - Docker registry
 
-##Docker Registry
+## Docker Registry
 
 To run a docker registry
 
@@ -19,7 +19,7 @@ To run a docker registry
 
 It uses a docker volume somewhere to store the built containers. Hopefully this doesn't chew through all my disk space.
 
-##Docker Swarm
+## Docker Swarm
 
 Docker swarm hosts the application containers as 'stacks', generated from a docker-compose file. Web containers publish a static port for NGINX.
 
@@ -27,11 +27,11 @@ To deploy an application
 
 	    ./deploy.sh $APP_NAME
 
-###NGINX
+### NGINX
 
 NGINX is installed on the host server. It uses static port mapping to route requests to containers.
 
-###Database:
+### Database:
 
 Postgres is installed on the host server. Each service has its own database. Backups are taken daily and stored in S3.
 
@@ -41,7 +41,7 @@ To acces psql
 	psql
 
 
-##Ansible
+## Ansible
 
 Ansible config lives in `ansible/`
 
