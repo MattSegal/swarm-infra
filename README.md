@@ -25,7 +25,7 @@ Docker swarm hosts the application containers as 'stacks', generated from a dock
 
 To deploy an application
 
-	    ./deploy.sh $APP_NAME
+	./deploy.sh $APP_NAME
 
 ### NGINX
 

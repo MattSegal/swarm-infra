@@ -95,6 +95,22 @@
         port: 5432
         lc_collate: en_US.UTF-8
         lc_ctype: en_US.UTF-8
+    - name: Setup photos user
+      become: true
+      become_user: postgres
+      postgresql_user:
+        name: "{{ db_user_photos }}"
+        password: "{{ db_password_photos }}"
+    - name: Setup photos database
+      become: true
+      become_user: postgres
+      postgresql_db:
+        name: photos
+        state: present
+        owner: "{{ db_user_photos }}"
+        port: 5432
+        lc_collate: en_US.UTF-8
+        lc_ctype: en_US.UTF-8
 
     - name: Restart postgresql
       service:
@@ -102,6 +118,20 @@
         state: restarted
 
     # Secrets / parameterized config
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^AWS_ACCESS_KEY_ID'
+        line: 'AWS_ACCESS_KEY_ID="{{ aws_access_key_id }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^AWS_SECRET_ACCESS_KEY'
+        line: 'AWS_SECRET_ACCESS_KEY="{{ aws_secret_access_key }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^DJANGO_SECRET_KEY'
+        line: 'DJANGO_SECRET_KEY="{{ django_secret_key }}"'
+
+    # Reddit app
     - lineinfile:
         path: /etc/environment
         regexp: '^REDDIT_DB_USER'
@@ -114,14 +144,24 @@
         path: /etc/environment
         regexp: '^REDDIT_DB_HOST'
         line: 'REDDIT_DB_HOST="167.99.78.141"'
+
+    # Photos app
     - lineinfile:
         path: /etc/environment
-        regexp: '^AWS_ACCESS_KEY_ID'
-        line: 'AWS_ACCESS_KEY_ID="{{ aws_access_key_id }}"'
+        regexp: '^PHOTOS_RAVEN_DSN'
+        line: 'PHOTOS_RAVEN_DSN="{{ photos_raven_dsn }}"'
     - lineinfile:
         path: /etc/environment
-        regexp: '^AWS_SECRET_ACCESS_KEY'
-        line: 'AWS_SECRET_ACCESS_KEY="{{ aws_secret_access_key }}"'
+        regexp: '^PHOTOS_DB_USER'
+        line: 'PHOTOS_DB_USER="{{ db_user_photos }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^PHOTOS_DB_PASSWORD'
+        line: 'PHOTOS_DB_PASSWORD="{{ db_password_photos }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^PHOTOS_DB_HOST'
+        line: 'PHOTOS_DB_HOST="167.99.78.141"'
 
     # Folder Structure
     - name: Repo folder
@@ -165,3 +205,8 @@
       cron:
         hour: 0
         job: /root/scripts/backup-db.sh reddit
+
+    - name: Photos database backup job
+      cron:
+        hour: 0
+        job: /root/scripts/backup-db.sh photos
