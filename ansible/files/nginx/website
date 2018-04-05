@@ -1,6 +1,42 @@
+##
+# Virtual Host Configs
+##
+##
+# Redirect HTTP to canonical domains with HTTPS
+# Eg: http://www.example.com -> http://example.com
+##
+map $host $redirect_host {
+    # From domain               To domain
+    www.memories.ninja          memories.ninja;
+    www.mattslinks.xyz          mattslinks.xyz;
+}
 server {
     listen 80 default_server;
-    listen [::]:80 default_server ipv6only=on;
+    listen [::]:80 default_server;
+    location / {
+        if ($redirect_host) {
+            return 301 https://$redirect_host$request_uri;
+        }
+        # Default to memories.ninja
+        return 301 https://memories.ninja$request_uri;
+    }
+}
+
+##
+# Reverse proxy all HTTPS requests to gunicorn
+# https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx
+##
+server {
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 default_server;
+    server_name memories.ninja www.memories.ninja;
+    ssl_certificate /etc/letsencrypt/live/memories.ninja/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/memories.ninja/privkey.pem;
+    include ssl-params.conf;
+
+    if ($redirect_host) {
+        return 301 https://$redirect_host$request_uri;
+    }
 
     location / {
         proxy_pass http://127.0.0.1:8000;
@@ -9,3 +45,22 @@ server {
         proxy_redirect off;
     }
 }
+#server {
+#    listen 443 ssl http2;
+#    listen [::]:443 ssl http2;
+#    server_name mattslinks.xyz www.mattslinks.xyz;
+#    ssl_certificate /etc/letsencrypt/live/mattslinks.xyz/fullchain.pem;
+#    ssl_certificate_key /etc/letsencrypt/live/mattslinks.xyz/privkey.pem;
+#    include ssl-params.conf;
+#
+#    if ($redirect_host) {
+#        return 301 https://$redirect_host$request_uri;
+#    }
+#
+#    location / {
+#        proxy_pass http://127.0.0.1:8001;
+#        proxy_set_header Host $host;
+#        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#        proxy_redirect off;
+#    }
+#}

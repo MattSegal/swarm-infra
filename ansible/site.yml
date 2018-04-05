@@ -32,6 +32,13 @@
         owner: www-data
         group: www-data
         mode: 0644
+    - name: Copy nginx SSL params
+      copy:
+        src: ./files/nginx/ssl-params.conf
+        dest: /etc/nginx/ssl-params.conf
+        owner: www-data
+        group: www-data
+        mode: 0644
     - name: Copy website config
       copy:
         src: ./files/nginx/website

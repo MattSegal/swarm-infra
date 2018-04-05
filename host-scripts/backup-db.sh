@@ -7,10 +7,8 @@ fi
 DB_NAME="$1"
 
 TIME=$(date "+%s")
-BACKUP_DIR="/var/backups/${DB_NAME}"
-BACKUP_FILE="${BACKUP_DIR}/postgres_${DB_NAME}_${TIME}.sql.gz"
-BACKUP_BUCKET="s3://swarm-db-backup/${DB_NAME}/"
+BACKUP_TARGET="s3://swarm-db-backup/${DB_NAME}/postgres_${DB_NAME}_${TIME}.sql.gz"
 
-mkdir -p $BACKUP_DIR
-sudo -u postgres -i pg_dump -Fc $DB_NAME | gzip > $BACKUP_FILE
-aws s3 cp $BACKUP_FILE $BACKUP_BUCKET
+pushd /
+sudo -u postgres -i pg_dump -Fc $DB_NAME | gzip | aws s3 cp - $BACKUP_TARGET
+popd
