@@ -13,7 +13,7 @@ A single DigitalOcean droplet runs:
 
 ## Docker Registry
 
-To run a docker registry
+To run a docker registry on the host VM
 
 	docker run -d -p 5000:5000 --name registry registry:2
 
@@ -30,6 +30,16 @@ To deploy an application
 ### NGINX
 
 NGINX is installed on the host server. It uses static port mapping to route requests to containers.
+HTTPS is enabled via NGINX using the LetsEncrypt certbot for the certificate
+
+Create cert
+
+    certbot --nginx -d memories.ninja
+    openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 4096
+
+Renew expiring cert
+
+    certbot renew
 
 ### Database:
 
@@ -51,6 +61,6 @@ To encrypt secrets:
 
 	./encrypt-secrets.sh
 
-To deploy with secrets
+To configure the docker host VM with secrets
 
     ./configure.sh
