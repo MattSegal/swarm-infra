@@ -17,6 +17,6 @@ ssh root@$HOST /bin/bash << EOF
     pushd /
     aws s3 cp s3://swarm-db-backup/${DB_NAME}/\$LATEST_BACKUP - |
         gunzip |
-        sudo -u postgres pg_restore --dbname $DB_NAME
+        sudo -u postgres pg_restore --dbname $DB_NAME --no-owner
     popd
 EOF

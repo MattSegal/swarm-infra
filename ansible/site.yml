@@ -122,7 +122,7 @@
       become: true
       become_user: postgres
       postgresql_user:
-        name: "{{ db_user_links }}"
+        name: "{{ db_user_links }}}"
         password: "{{ db_password_links }}"
     - name: Setup links database
       become: true
@@ -130,7 +130,7 @@
       postgresql_db:
         name: links
         state: present
-        owner: "{{ db_user_links }}"
+        owner: "{{ db_user_links }}}"
         port: 5432
         lc_collate: en_US.UTF-8
         lc_ctype: en_US.UTF-8
@@ -157,12 +157,16 @@
     # Links app
     - lineinfile:
         path: /etc/environment
+        regexp: '^LINKS_RAVEN_DSN'
+        line: 'LINKS_RAVEN_DSN="{{ links_raven_dsn }}"'
+    - lineinfile:
+        path: /etc/environment
         regexp: '^LINKS_DB_USER'
-        line: 'LINKS_DB_USER="{{ db_user_links }"'
+        line: 'LINKS_DB_USER="{{ db_user_links }}"'
     - lineinfile:
         path: /etc/environment
         regexp: '^LINKS_DB_PASSWORD'
-        line: 'LINKS_DB_PASSWORD="{{ db_password_links }"'
+        line: 'LINKS_DB_PASSWORD="{{ db_password_links }}"'
     - lineinfile:
         path: /etc/environment
         regexp: '^LINKS_DB_HOST'
