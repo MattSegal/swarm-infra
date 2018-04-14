@@ -175,6 +175,26 @@
     # Reddit app
     - lineinfile:
         path: /etc/environment
+        regexp: '^REDDIT_RAVEN_DSN'
+        line: 'REDDIT_RAVEN_DSN="{{ reddit_raven_dsn }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^REDDIT_USER_AGENT'
+        line: 'REDDIT_USER_AGENT="{{ reddit_user_agent }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^REDDIT_BASIC_AUTH'
+        line: 'REDDIT_BASIC_AUTH="{{ reddit_basic_auth }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^GOOGLE_OAUTH2_KEY'
+        line: 'GOOGLE_OAUTH2_KEY="{{ google_oauth2_key }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^GOOGLE_OAUTH2_SECRET'
+        line: 'GOOGLE_OAUTH2_SECRET="{{ google_oauth2_secret }}"'
+    - lineinfile:
+        path: /etc/environment
         regexp: '^REDDIT_DB_USER'
         line: 'REDDIT_DB_USER="{{ db_user_reddit }}"'
     - lineinfile:
