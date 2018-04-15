@@ -86,6 +86,22 @@
         group: postgres
         mode: 0640
 
+    - name: Setup zappa user
+      become: true
+      become_user: postgres
+      postgresql_user:
+        name: "{{ db_user_zappa }}"
+        password: "{{ db_password_zappa }}"
+    - name: Setup zappa database
+      become: true
+      become_user: postgres
+      postgresql_db:
+        name: zappa
+        state: present
+        owner: "{{ db_user_zappa }}"
+        port: 5432
+        lc_collate: en_US.UTF-8
+        lc_ctype: en_US.UTF-8
     - name: Setup reddit user
       become: true
       become_user: postgres
