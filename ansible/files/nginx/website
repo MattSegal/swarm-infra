@@ -10,6 +10,8 @@ server {
     listen [::]:80 default_server;
     server_name
         redditfeed.xyz
+        whatsonmelb.fun
+        www.whatsonmelb.fun
         memories.ninja
         www.memories.ninja
         www.mattslinks.xyz
@@ -67,6 +69,29 @@ server {
     include ssl-params.conf;
     location / {
         proxy_pass http://127.0.0.1:8002;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect off;
+    }
+}
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.whatsonmelb.fun;
+    ssl_certificate /etc/letsencrypt/live/www.whatsonmelb.fun/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.whatsonmelb.fun/privkey.pem;
+    include ssl-params.conf;
+    return 301 https://whatsonmelb.fun$request_uri;
+}
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name whatsonmelb.fun;
+    ssl_certificate /etc/letsencrypt/live/whatsonmelb.fun/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/whatsonmelb.fun/privkey.pem;
+    include ssl-params.conf;
+    location / {
+        proxy_pass http://127.0.0.1:8003;
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_redirect off;
