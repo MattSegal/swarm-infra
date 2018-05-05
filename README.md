@@ -41,6 +41,11 @@ Renew expiring cert
 
     certbot renew
 
+To flush dns cache
+
+    sudo /etc/init.d/dns-clean restart
+    sudo /etc/init.d/networking force-reload
+
 ### Database:
 
 Postgres is installed on the host server. Each service has its own database. Backups are taken daily and stored in S3.
