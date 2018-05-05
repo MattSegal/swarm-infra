@@ -86,19 +86,19 @@
         group: postgres
         mode: 0640
 
-    - name: Setup zappa user
+    - name: Setup whatson user
       become: true
       become_user: postgres
       postgresql_user:
-        name: "{{ db_user_zappa }}"
-        password: "{{ db_password_zappa }}"
-    - name: Setup zappa database
+        name: "{{ db_user_whatson }}"
+        password: "{{ db_password_whatson }}"
+    - name: Setup whatson database
       become: true
       become_user: postgres
       postgresql_db:
-        name: zappa
+        name: whatson
         state: present
-        owner: "{{ db_user_zappa }}"
+        owner: "{{ db_user_whatson }}"
         port: 5432
         lc_collate: en_US.UTF-8
         lc_ctype: en_US.UTF-8
@@ -169,6 +169,10 @@
         path: /etc/environment
         regexp: '^DJANGO_SECRET_KEY'
         line: 'DJANGO_SECRET_KEY="{{ django_secret_key }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^GEOCODING_API_KEY'
+        line: 'GEOCODING_API_KEY="{{ geocoding_api_key }}"'
 
     # Links app
     - lineinfile:
@@ -239,6 +243,20 @@
         path: /etc/environment
         regexp: '^PHOTOS_DB_HOST'
         line: 'PHOTOS_DB_HOST="167.99.78.141"'
+
+    # Whatson app
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WHATSON_RAVEN_DSN'
+        line: 'WHATSON_RAVEN_DSN="{{ whatson_raven_dsn }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WHATSON_DB_USER'
+        line: 'WHATSON_DB_USER="{{ db_user_whatson }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WHATSON_DB_PASSWORD'
+        line: 'WHATSON_DB_PASSWORD="{{ db_password_whatson }}"'
 
     # Folder Structure
     - name: Repo folder
