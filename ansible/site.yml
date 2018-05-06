@@ -173,6 +173,15 @@
         path: /etc/environment
         regexp: '^GEOCODING_API_KEY'
         line: 'GEOCODING_API_KEY="{{ geocoding_api_key }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^FLOWER_USER'
+        line: 'FLOWER_USER="{{ flower_user }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^FLOWER_PASSWORD'
+        line: 'FLOWER_PASSWORD="{{ flower_password }}"'
+
 
     # Links app
     - lineinfile:
