@@ -11,13 +11,7 @@ A single DigitalOcean droplet runs:
 - Docker swarm
 - Docker registry
 
-## Docker Registry
 
-To run a docker registry on the host VM
-
-	docker run -d -p 5000:5000 --name registry registry:2
-
-It uses a docker volume somewhere to store the built containers. Hopefully this doesn't chew through all my disk space.
 
 ## Docker Swarm
 
@@ -25,7 +19,15 @@ Docker swarm hosts the application containers as 'stacks', generated from a dock
 
 To deploy an application
 
-	./deploy.sh $APP_NAME
+    ./deploy.sh $APP_NAME
+
+## Docker Registry
+
+To run a docker registry on the host VM
+
+	docker run -d -p 5000:5000 --name registry registry:2
+
+It uses a docker volume somewhere to store the built containers. Hopefully this doesn't chew through all my disk space.
 
 ### NGINX
 
