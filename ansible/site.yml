@@ -266,6 +266,18 @@
         path: /etc/environment
         regexp: '^WHATSON_DB_PASSWORD'
         line: 'WHATSON_DB_PASSWORD="{{ db_password_whatson }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WHATSON_PAPERTRAIL_HOSTNAME'
+        line: 'WHATSON_PAPERTRAIL_HOSTNAME="{{ whatson_papertrail_hostname }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WHATSON_PAPERTRAIL_URL'
+        line: 'WHATSON_PAPERTRAIL_URL="{{ whatson_papertrail_url }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WHATSON_PAPERTRAIL_PORT'
+        line: 'WHATSON_PAPERTRAIL_PORT="{{ whatson_papertrail_port }}"'
 
     # Folder Structure
     - name: Repo folder
