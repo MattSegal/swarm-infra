@@ -279,6 +279,16 @@
         regexp: '^WHATSON_PAPERTRAIL_PORT'
         line: 'WHATSON_PAPERTRAIL_PORT="{{ whatson_papertrail_port }}"'
 
+    # War app
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WAR_DB_USER'
+        line: 'WAR_DB_USER="{{ db_user_war }}"'
+    - lineinfile:
+        path: /etc/environment
+        regexp: '^WAR_DB_PASSWORD'
+        line: 'WAR_DB_PASSWORD="{{ db_password_war }}"'
+
     # Folder Structure
     - name: Repo folder
       file:
