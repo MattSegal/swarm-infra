@@ -1,7 +1,7 @@
 #!/bin/bash
 # Configure host server with Ansible
 set -e
-. ~/venv/bin/activate
+. ./env/bin/activate
 ansible-playbook \
 	--vault-password-file ~/.vault-pass.txt \
 	--inventory ./ansible/hosts \

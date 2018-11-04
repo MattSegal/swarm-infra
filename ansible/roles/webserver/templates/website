@@ -37,6 +37,10 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/{{ endpoint.ssl_cert }}/privkey.pem;
     include ssl-params.conf;
     location / {
+        {% if endpoint.basic_auth %}
+        auth_basic "Login Required";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        {% endif %}
         proxy_pass http://127.0.0.1:{{ endpoint.port }};
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

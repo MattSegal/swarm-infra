@@ -34,6 +34,13 @@
     owner: www-data
     group: www-data
     mode: 0644
+- name: Copy .htpasswd
+  template:
+    src: .htpasswd
+    dest: /etc/nginx/.htpasswd
+    owner: www-data
+    group: www-data
+    mode: 0644
 - name: Copy website config
   template:
     src: website

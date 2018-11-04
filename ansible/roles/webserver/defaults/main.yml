@@ -7,6 +7,7 @@ http_redirect_domains:
     - www.whatsonmelb.fun
     - memories.ninja
     - www.memories.ninja
+    - jenkins.mattslinks.xyz
     - www.mattslinks.xyz
     - mattslinks.xyz
 
@@ -29,19 +30,29 @@ https_endpoints:
       server_name: memories.ninja www.memories.ninja
       ssl_cert: memories.ninja
       port: 8000
+      basic_auth: False
       flower_port: null
     - name: Matt's Links
       server_name: mattslinks.xyz
       ssl_cert: mattslinks.xyz
       port: 8001
+      basic_auth: False
       flower_port: null
     - name: Whatson Melb
       server_name: whatsonmelb.fun
       ssl_cert: whatsonmelb.fun
       port: 8003
+      basic_auth: False
       flower_port: 5553
     - name: Cams War Links
       server_name: camswarlinks.com
       ssl_cert: camswarlinks.com
       port: 8004
+      basic_auth: False
+      flower_port: null
+    - name: Jenkins
+      server_name: jenkins.mattslinks.xyz
+      ssl_cert: jenkins.mattslinks.xyz
+      port: 8080
+      basic_auth: True
       flower_port: null
