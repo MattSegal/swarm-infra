@@ -1,0 +1,28 @@
+  - lineinfile:
+      path: /etc/environment
+      regexp: '^{{ app.prefix }}_RAVEN_DSN'
+      line: '{{ app.prefix }}_RAVEN_DSN="{{ app.raven }}"'
+  - lineinfile:
+      path: /etc/environment
+      regexp: '^{{ app.prefix }}_DB_USER'
+      line: '{{ app.prefix }}_DB_USER="{{ app.db_user }}"'
+  - lineinfile:
+      path: /etc/environment
+      regexp: '^{{ app.prefix }}_DB_PASSWORD'
+      line: '{{ app.prefix }}_DB_PASSWORD="{{ app.db_password }}"'
+  - lineinfile:
+      path: /etc/environment
+      regexp: '^{{ app.prefix }}_DB_HOST'
+      line: '{{ app.prefix }}_DB_HOST="{{ app.db_host }}"'
+  - lineinfile:
+      path: /etc/environment
+      regexp: '^{{ app.prefix }}_PAPERTRAIL_HOSTNAME'
+      line: '{{ app.prefix }}_PAPERTRAIL_HOSTNAME="{{ app.papertrail_hostname }}"'
+  - lineinfile:
+      path: /etc/environment
+      regexp: '^{{ app.prefix }}_PAPERTRAIL_URL'
+      line: '{{ app.prefix }}_PAPERTRAIL_URL="{{ app.papertrail_url }}"'
+  - lineinfile:
+      path: /etc/environment
+      regexp: '^{{ app.prefix }}_PAPERTRAIL_PORT'
+      line: '{{ app.prefix }}_PAPERTRAIL_PORT="{{ app.papertrail_port }}"'

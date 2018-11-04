@@ -1,0 +1,93 @@
+---
+# Common config
+- include_vars: secrets.yml
+
+# Folder Structure
+- name: Repo folder
+  file:
+    state: directory
+    path: /root/repos
+    owner: root
+    group: root
+- name: Host scripts folder
+  file:
+    state: directory
+    path: /root/scripts
+    owner: root
+    group: root
+- name: Database backups folder
+  file:
+    state: directory
+    path: /root/backups
+    owner: root
+    group: root
+
+# AWS CLI
+- name: Install pip
+  apt:
+    name: python3-pip
+    state: present
+- pip:
+    name: awscli
+    executable: pip3
+
+# Secrets / parameterized config
+- name: Write envar {{ item.key }}
+  lineinfile:
+    path: /etc/environment
+    regexp: '^{{ item.key }}'
+    line: '{{ item.key }}="{{ item.value }}"'
+  loop:
+    - key: AWS_ACCESS_KEY_ID
+      value: "{{ aws_access_key_id }}"
+    - key: AWS_SECRET_ACCESS_KEY
+      value: "{{ aws_secret_access_key }}"
+    - key: DJANGO_SECRET_KEY
+      value: "{{ django_secret_key }}"
+    - key: GEOCODING_API_KEY
+      value: "{{ geocoding_api_key }}"
+    - key: FLOWER_USER
+      value: "{{ flower_user }}"
+    - key: FLOWER_PASSWORD
+      value: "{{ flower_password }}"
+
+  # App specific config
+- include_tasks: setup_app_envars.yml
+  loop_control:
+    loop_var: app
+  with_items:
+    - prefix: LINKS
+      raven: "{{ links_raven_dsn }}"
+      db_user: "{{ db_user_links }}"
+      db_password: "{{ db_password_links }}"
+      db_host: "167.99.78.141"
+      papertrail_hostname: ""
+      papertrail_url: ""
+      papertrail_port: ""
+
+    - prefix: PHOTOS
+      raven: "{{ photos_raven_dsn }}"
+      db_user: "{{ db_user_photos }}"
+      db_password: "{{ db_password_photos }}"
+      db_host: "167.99.78.141"
+      papertrail_hostname: ""
+      papertrail_url: ""
+      papertrail_port: ""
+
+    - prefix: WHATSON
+      raven: "{{ whatson_raven_dsn }}"
+      db_user: "{{ db_user_whatson }}"
+      db_password: "{{ db_password_whatson }}"
+      db_host: "167.99.78.141"
+      papertrail_hostname: "{{ whatson_papertrail_hostname }}"
+      papertrail_url: "{{ whatson_papertrail_url }}"
+      papertrail_port: "{{ whatson_papertrail_port }}"
+
+    - prefix: WAR
+      raven: ""
+      db_user: "{{ db_user_war }}"
+      db_password: "{{ db_password_war }}"
+      db_host: "167.99.78.141"
+      papertrail_hostname: ""
+      papertrail_url: ""
+      papertrail_port: ""
