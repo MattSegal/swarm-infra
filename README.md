@@ -76,3 +76,13 @@ To encrypt secrets:
 To configure the docker host VM with secrets
 
     ./configure.sh
+
+
+## To Do
+
+- Add docker install to Ansible
+- Add docker swarm
+- Add docker registry service to Ansible
+- Add parameterized build scripts to Ansible
+- Setup db backup Jenkinsfile
+- Setup automated build / deploy pipelines for projects
