@@ -10,11 +10,6 @@ A single DigitalOcean droplet runs:
 - Postgres database
 - Docker swarm
 - Docker registry
-- Jenkins build server
-
-## Jenkins
-
-TODO: Document
 
 ## Docker Swarm
 
@@ -69,17 +64,16 @@ Ansible currently configures postgres and NGINX on the host server.
 
 To encrypt secrets:
 
-	./encrypt-secrets.sh
+	./scripts/encrypt-secrets.sh
 
 To configure the docker host VM with secrets
 
-    ./configure.sh
+    ./scripts/configure.sh
 
 
 ## To Do
 
 - Add docker install to Ansible
-- Add docker swarm
+- Add docker swarm setup
 - Add docker registry service to Ansible
-- Setup automated build / deploy pipelines for projects
-- Document Jenkins
+- Setup non shitty automated build / deploy pipelines for projects
