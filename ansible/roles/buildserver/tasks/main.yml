@@ -1,0 +1,46 @@
+---
+# Build server config
+- include_vars: secrets.yml
+
+# Folder Structure
+- name: Repo folder
+  file:
+    state: directory
+    path: /root/repos
+    owner: root
+    group: root
+    mode: 0755
+- name: Host scripts folder
+  file:
+    state: directory
+    path: /root/scripts
+    owner: root
+    group: root
+    mode: 0755
+- name: Database backups folder
+  file:
+    state: directory
+    path: /root/backups
+    owner: root
+    group: root
+    mode: 0777
+- name: Copy build scripts
+  template:
+    src: "{{ item }}"
+    dest: "/root/scripts/{{ item }}"
+    mode: 0755
+  loop:
+    - build-app.sh
+    - deploy-app.sh
+    - backup-database.sh
+
+# AWS CLI
+- name: Install pip
+  apt:
+    name: python3-pip
+    state: present
+- pip:
+    name: awscli
+    executable: pip3
+
+

@@ -10,10 +10,18 @@ ssh root@$HOST /bin/bash << EOF
 EOF
 
 scp docker-compose.yml root@$HOST:/root/jenkins
+scp Dockerfile root@$HOST:/root/jenkins
 
 ssh root@$HOST /bin/bash << EOF
     set -e
     cd jenkins
-    echo "Deploying jenkins to docker swarm"
+
+    echo "Building Jenkins"
+    docker-compose build
+
+    echo "Pushing Jenkins to local registry"
+    docker-compose push
+
+    echo "Deploying Jenkins to docker swarm"
     docker stack deploy --compose-file docker-compose.yml jenkins
 EOF

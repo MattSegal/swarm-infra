@@ -2,11 +2,6 @@
 
 This repo describes the infrastructure I'm using for my personal projects
 
-## Jenkins
-
-
-
-
 ## Overview
 
 A single DigitalOcean droplet runs:
@@ -15,8 +10,11 @@ A single DigitalOcean droplet runs:
 - Postgres database
 - Docker swarm
 - Docker registry
+- Jenkins build server
 
+## Jenkins
 
+TODO: Document
 
 ## Docker Swarm
 
@@ -83,6 +81,5 @@ To configure the docker host VM with secrets
 - Add docker install to Ansible
 - Add docker swarm
 - Add docker registry service to Ansible
-- Add parameterized build scripts to Ansible
-- Setup db backup Jenkinsfile
 - Setup automated build / deploy pipelines for projects
+- Document Jenkins

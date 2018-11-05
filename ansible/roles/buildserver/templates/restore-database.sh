@@ -1,5 +1,7 @@
 #!/bin/bash
 # Restore a database from backups
+# TODO - MAKE THIS WORK
+exit 1
 HOST='167.99.78.141'
 
 set -e

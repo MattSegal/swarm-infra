@@ -16,35 +16,6 @@
     name: fail2ban
     state: restarted
 
-# Folder Structure
-- name: Repo folder
-  file:
-    state: directory
-    path: /root/repos
-    owner: root
-    group: root
-- name: Host scripts folder
-  file:
-    state: directory
-    path: /root/scripts
-    owner: root
-    group: root
-- name: Database backups folder
-  file:
-    state: directory
-    path: /root/backups
-    owner: root
-    group: root
-
-# AWS CLI
-- name: Install pip
-  apt:
-    name: python3-pip
-    state: present
-- pip:
-    name: awscli
-    executable: pip3
-
 # Secrets / parameterized config
 - name: Write envar {{ item.key }}
   lineinfile:

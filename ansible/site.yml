@@ -3,5 +3,6 @@
   remote_user: root
   roles:
     # - common
-    - webserver
+    # - webserver
     # - database
+    - buildserver
