@@ -1,0 +1,28 @@
+
+# TODO
+# https://blog.scottlogic.com/2016/06/20/declarative-ci-cd-with-concourse.html
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-continuous-integration-pipelines-with-concourse-ci-on-ubuntu-16-04
+# https://concourse-ci.org/tutorials.html
+
+resources:
+  - name: code
+    type: git
+    source:
+      uri: https://github.com/MattSegal/link-sharing-site.git
+      branch: master
+
+jobs:
+  - name: deploy links
+    public: true
+    serial: true
+    plan:
+      - get: code
+        trigger: true
+      - task: build
+        file: code/concourse/build.yml
+      - task: create-context
+        file: code/concourse/create-context.yml
+      - put: image
+        params:
+          build: context
+      - put: swarm

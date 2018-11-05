@@ -31,28 +31,40 @@ https_endpoints:
       ssl_cert: memories.ninja
       port: 8000
       basic_auth: False
+      github_webhook: null
       flower_port: null
     - name: Matt's Links
       server_name: mattslinks.xyz
       ssl_cert: mattslinks.xyz
       port: 8001
       basic_auth: False
+      github_webhook: null
       flower_port: null
     - name: Whatson Melb
       server_name: whatsonmelb.fun
       ssl_cert: whatsonmelb.fun
       port: 8003
       basic_auth: False
+      github_webhook: null
       flower_port: 5553
     - name: Cams War Links
       server_name: camswarlinks.com
       ssl_cert: camswarlinks.com
       port: 8004
       basic_auth: False
+      github_webhook: null
       flower_port: null
-    - name: Jenkins
-      server_name: jenkins.mattslinks.xyz
-      ssl_cert: jenkins.mattslinks.xyz
+    # - name: Jenkins
+    #   server_name: jenkins.mattslinks.xyz
+    #   ssl_cert: jenkins.mattslinks.xyz
+    #   port: 8080
+    #   basic_auth: True
+    #   github_webhook: True
+    #   flower_port: null
+    - name: Concourse
+      server_name: concourse.mattslinks.xyz
+      ssl_cert: concourse.mattslinks.xyz
       port: 8080
-      basic_auth: True
+      basic_auth: False
+      github_webhook: False
       flower_port: null

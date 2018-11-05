@@ -35,6 +35,10 @@
       value: "{{ flower_user }}"
     - key: FLOWER_PASSWORD
       value: "{{ flower_password }}"
+    - key: CONCOURSE_GITHUB_CLIENT_ID
+      value: "{{ concourse.github.client.id }}"
+    - key: CONCOURSE_GITHUB_CLIENT_SECRET
+      value: "{{ concourse.github.client.secret }}"
 
   # App specific config
 - include_tasks: setup_app_envars.yml
@@ -72,6 +76,15 @@
       raven: ""
       db_user: "{{ db_user_war }}"
       db_password: "{{ db_password_war }}"
+      db_host: "167.99.78.141"
+      papertrail_hostname: ""
+      papertrail_url: ""
+      papertrail_port: ""
+
+    - prefix: CONCOURSE
+      raven: ""
+      db_user: "{{ db_user_concourse }}"
+      db_password: "{{ db_password_concourse }}"
       db_host: "167.99.78.141"
       papertrail_hostname: ""
       papertrail_url: ""
