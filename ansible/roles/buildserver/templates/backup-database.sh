@@ -7,14 +7,14 @@ fi
 DB_NAME="$1"
 TIME=$(date "+%s")
 BACKUP_FILE="postgres_${DB_NAME}_${TIME}.sql.gz"
-BACKUP_LOCAL="/var/build/backups/$BACKUP_FILE"
+BACKUP_LOCAL="/root/backups/$BACKUP_FILE"
 BACKUP_S3="s3://swarm-db-backup/${DB_NAME}/${BACKUP_FILE}"
 
 # This is probably way more complicated than it should be
 DB_USER_VAR="$(echo $DB_NAME | tr a-z A-Z)_DB_USER"
 DB_PASSWORD_VAR="$(echo $DB_NAME | tr a-z A-Z)_DB_PASSWORD"
 
-export PGHOST=$SWARM_HOST
+export PGHOST=167.99.78.141
 export PGDATABASE=$DB_NAME
 export PGUSER="${!DB_USER_VAR}"
 export PGPASSWORD="${!DB_PASSWORD_VAR}"

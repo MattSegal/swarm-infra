@@ -23,15 +23,13 @@
     path: /root/backups
     owner: root
     group: root
-    mode: 0777
+    mode: 0755
 - name: Copy build scripts
   template:
     src: "{{ item }}"
     dest: "/root/scripts/{{ item }}"
     mode: 0755
   loop:
-    - build-app.sh
-    - deploy-app.sh
     - backup-database.sh
 
 # AWS CLI

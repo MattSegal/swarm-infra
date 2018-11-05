@@ -42,9 +42,6 @@
     - name: war
       owner: "{{ db_user_war }}"
       password: "{{ db_password_war }}"
-    - name: concourse
-      owner: "{{ db_user_concourse }}"
-      password: "{{ db_password_concourse }}"
 
 - name: Restart postgresql
   service:
