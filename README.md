@@ -13,7 +13,7 @@ A single DigitalOcean droplet runs:
 
 ## Docker Swarm
 
-Docker swarm hosts the application containers as 'stacks', generated from a docker-compose file. Web containers publish a static port for NGINX.
+Docker swarm hosts the application containers ([example](https://github.com/MattSegal/link-sharing-site/)) as 'stacks', generated from a docker-compose file. Web containers publish a static port for NGINX.
 
 To deploy an application
 
