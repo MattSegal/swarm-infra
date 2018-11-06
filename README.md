@@ -48,7 +48,7 @@ To flush dns cache
 
 ### Database:
 
-Postgres is installed on the host server. Each service has its own database. Backups are taken daily and stored in S3.
+Postgres is installed on the host server. Each service has its own database.
 
 To acces psql
 
@@ -70,9 +70,13 @@ To configure the docker host VM with secrets
 
     ./scripts/configure.sh
 
+To take database backups
+
+    ./scripts/backup.sh
 
 ## To Do
 
+- Try make secrets a traversible data structure
 - Add docker install to Ansible
 - Add docker swarm setup
 - Add docker registry service to Ansible
