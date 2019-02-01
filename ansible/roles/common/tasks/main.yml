@@ -35,6 +35,12 @@
       value: "{{ flower_user }}"
     - key: FLOWER_PASSWORD
       value: "{{ flower_password }}"
+    - key: GOOGLE_SERVICE_ACCOUNT
+      value: "{{ google_service_account }}"
+    - key: GOOGLE_OAUTH2_KEY
+      value: "{{ google_oauth_2_key }}"
+    - key: GOOGLE_OAUTH2_SECRET
+      value: "{{ google_oauth_2_secret }}"
 
   # App specific config
 - include_tasks: setup_app_envars.yml
