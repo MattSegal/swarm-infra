@@ -61,27 +61,27 @@
       db_user: "{{ db_user_photos }}"
       db_password: "{{ db_password_photos }}"
       db_host: "167.99.78.141"
-      papertrail_hostname: ""
-      papertrail_url: ""
-      papertrail_port: ""
+      papertrail_hostname: "MemoriesNinja"
+      papertrail_url: "{{ papertrail_url }}"
+      papertrail_port: "{{ papertrail_port }}"
 
     - prefix: WHATSON
       raven: "{{ whatson_raven_dsn }}"
       db_user: "{{ db_user_whatson }}"
       db_password: "{{ db_password_whatson }}"
       db_host: "167.99.78.141"
-      papertrail_hostname: "{{ whatson_papertrail_hostname }}"
-      papertrail_url: "{{ whatson_papertrail_url }}"
-      papertrail_port: "{{ whatson_papertrail_port }}"
+      papertrail_hostname: "WhatsOn"
+      papertrail_url: "{{ papertrail_url }}"
+      papertrail_port: "{{ papertrail_port }}"
 
     - prefix: READER
       raven: "{{ reader_raven_dsn }}"
       db_user: "{{ db_user_reader }}"
       db_password: "{{ db_password_reader }}"
       db_host: "167.99.78.141"
-      papertrail_hostname: "{{ reader_papertrail_hostname }}"
-      papertrail_url: "{{ reader_papertrail_url }}"
-      papertrail_port: "{{ reader_papertrail_port }}"
+      papertrail_hostname: "BlogReader"
+      papertrail_url: "{{ papertrail_url }}"
+      papertrail_port: "{{ papertrail_port }}"
 
     - prefix: WAR
       raven: ""
