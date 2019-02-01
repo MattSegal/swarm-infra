@@ -9,6 +9,8 @@ http_redirect_domains:
     - www.memories.ninja
     - www.mattslinks.xyz
     - mattslinks.xyz
+    - www.blogreader.com.au
+    - blogreader.com.au
 
 https_redirects:
     - name: Cams War Links (www)
@@ -23,6 +25,10 @@ https_redirects:
       server_name: www.whatsonmelb.fun
       ssl_cert: www.whatsonmelb.fun
       target: whatsonmelb.fun
+    - name: Blog Reader (www)
+      server_name: www.blogreader.com.au
+      ssl_cert: www.blogreader.com.au
+      target: blogreader.com.au
 
 https_endpoints:
     - name: Memories Ninja
@@ -44,4 +50,9 @@ https_endpoints:
       server_name: camswarlinks.com
       ssl_cert: camswarlinks.com
       port: 8004
+      flower_port: null
+    - name: Blog Reader
+      server_name: blogreader.com.au
+      ssl_cert: blogreader.com.au
+      port: 8005
       flower_port: null
