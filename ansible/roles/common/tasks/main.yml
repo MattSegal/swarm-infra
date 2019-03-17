@@ -23,6 +23,8 @@
     regexp: '^{{ item.key }}'
     line: '{{ item.key }}="{{ item.value }}"'
   loop:
+    - key: STRIPE_API_KEY
+      value: "{{ stripe_api_key }}"
     - key: AWS_ACCESS_KEY_ID
       value: "{{ aws_access_key_id }}"
     - key: AWS_SECRET_ACCESS_KEY

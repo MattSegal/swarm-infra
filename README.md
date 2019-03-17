@@ -55,6 +55,9 @@ To acces psql
 	su - postgres
 	psql
 
+To restore a database dump
+
+    pg_restore -n public --clean -j 2 -d $DB_NAME -p $DB_PORT -h $DB_HOST -U $DB_USER --no-owner $BACKUP_SQL_FILE
 
 ## Ansible
 
