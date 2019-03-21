@@ -2,7 +2,7 @@
 - hosts: swarm
   remote_user: root
   roles:
-     - common
-     - webserver
+    - common
+    - webserver
     - database
-     - buildserver
+    - buildserver
