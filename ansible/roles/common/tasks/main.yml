@@ -41,6 +41,10 @@
       value: "{{ google_oauth_2_key }}"
     - key: GOOGLE_OAUTH2_SECRET
       value: "{{ google_oauth_2_secret }}"
+    - key: FACEBOOK_KEY
+      value: "{{ facebook_key }}"
+    - key: FACEBOOK_SECRET
+      value: "{{ facebook_secret }}"
 
   # App specific config
 - include_tasks: setup_app_envars.yml
