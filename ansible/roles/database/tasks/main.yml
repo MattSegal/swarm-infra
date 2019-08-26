@@ -45,7 +45,9 @@
     - name: reader
       owner: "{{ db_user_reader }}"
       password: "{{ db_password_reader }}"
-
+    - name: tshirt
+      owner: "{{ db_user_tshirt }}"
+      password: "{{ db_password_tshirt }}"
 
 - name: Restart postgresql
   service:
