@@ -13,6 +13,9 @@ http_redirect_domains:
   - www.blogreader.com.au
   - blogreader.com.au
   - api.blogreader.com.au
+  - codeyourowntshirt.com
+  - api.codeyourowntshirt.com
+  - www.codeyourowntshirt.com
 
 https_redirects:
   - name: Cams War Links (www to root)
@@ -31,6 +34,10 @@ https_redirects:
     server_name: blogreader.com.au
     ssl_cert: blogreader.com.au
     target: www.blogreader.com.au
+  - name: tshirt (root to www)
+    server_name: codeyourowntshirt.com
+    ssl_cert: codeyourowntshirt.com
+    target: www.codeyourowntshirt.com
 
 https_endpoints:
   - name: Memories Ninja
@@ -57,4 +64,9 @@ https_endpoints:
     server_name: api.blogreader.com.au
     ssl_cert: api.blogreader.com.au
     port: 8005
+    flower_port: null
+  - name: Code Your Own Tshirt Backend
+    server_name: api.codeyourowntshirt.com
+    ssl_cert: api.codeyourowntshirt.com
+    port: 8006
     flower_port: null
