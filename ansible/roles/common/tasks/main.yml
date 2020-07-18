@@ -47,8 +47,16 @@
       value: "{{ facebook_key }}"
     - key: FACEBOOK_SECRET
       value: "{{ facebook_secret }}"
+    - key: LINKS_REDDIT_CLIENT_ID
+      value: "{{ links_reddit_client_id }}"
+    - key: LINKS_REDDIT_CLIENT_SECRET
+      value: "{{ links_reddit_client_secret }}"
+    - key: LINKS_REDDIT_USERNAME
+      value: "{{ links_reddit_username }}"
+    - key: LINKS_REDDIT_PASSWORD
+      value: "{{ links_reddit_password }}"
 
-  # App specific config
+# App specific config
 - include_tasks: setup_app_envars.yml
   loop_control:
     loop_var: app
