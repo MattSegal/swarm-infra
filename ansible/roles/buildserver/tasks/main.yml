@@ -33,12 +33,7 @@
     - backup-database.sh
 
 # AWS CLI
-- name: Install pip
+- name: Install AWS CLI
   apt:
-    name: python3-pip
-    state: present
-- pip:
     name: awscli
-    executable: pip3
-
-
+    state: present

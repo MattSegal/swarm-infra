@@ -1,9 +1,9 @@
 #!/bin/bash
 # Take database backups for all apps
-HOST='167.99.78.141'
+HOST='3.24.18.19'
 ssh root@$HOST /bin/bash << EOF
     set -e
-    for db_name in links war whatson photos reader
+    for db_name in links photos reader
     do
         echo "===== backing up \$db_name ====="
        /root/scripts/backup-database.sh \$db_name

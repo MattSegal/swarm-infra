@@ -1,37 +1,23 @@
 ---
 # Webserver default variables
-http_redirect_domains:
-  - memories.ninja
-  - www.memories.ninja
-  - www.mattslinks.xyz
-  - mattslinks.xyz
-  - www.blogreader.com.au
-  - blogreader.com.au
-  - api.blogreader.com.au
-
-https_redirects:
+redirects:
   - name: Matt's Links (www to root)
     server_name: www.mattslinks.xyz
-    ssl_cert: www.mattslinks.xyz
     target: mattslinks.xyz
   - name: Blog Reader (root to www)
     server_name: blogreader.com.au
-    ssl_cert: blogreader.com.au
     target: www.blogreader.com.au
+  - name: Memories Ninja (www to root)
+    server_name: www.memories.ninja
+    target: memories.ninja
 
-https_endpoints:
+endpoints:
   - name: Memories Ninja
-    server_name: memories.ninja www.memories.ninja
-    ssl_cert: memories.ninja
+    server_name: memories.ninja
     port: 8000
-    flower_port: null
   - name: Matt's Links
     server_name: mattslinks.xyz
-    ssl_cert: mattslinks.xyz
     port: 8001
-    flower_port: null
   - name: Blog Reader Backend
     server_name: api.blogreader.com.au
-    ssl_cert: api.blogreader.com.au
     port: 8005
-    flower_port: null

@@ -1,59 +1,30 @@
 ### Virtual Host Config
 
-## Redirect HTTP to  HTTPS
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name
-    {% for domain in http_redirect_domains %}
-        {{ domain }}
-    {% endfor %}
-    ;
-    return 301 https://$host$request_uri;
-}
-
-## HTTPS Redirects
-{% for redirect in https_redirects %}
+## HTTP Redirects
+{% for redirect in redirects %}
 # {{ redirect.name }}
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 80;
+    listen [::]:80;
     server_name {{ redirect.server_name }};
-    ssl_certificate /etc/letsencrypt/live/{{ redirect.ssl_cert }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ redirect.ssl_cert }}/privkey.pem;
-    include ssl-params.conf;
-    return 301 https://{{ redirect.target }}$request_uri;
+    return 301 http://{{ redirect.target }}$request_uri;
 }
 {% endfor %}
 
-## Reverse proxy all HTTPS requests to gunicorn
-{% for endpoint in https_endpoints %}
+## Reverse proxy all HTTP requests to gunicorn
+{% for endpoint in endpoints %}
 # {{ endpoint.name }}
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 80;
+    listen [::]:80;
     server_name {{ endpoint.server_name }};
-    ssl_certificate /etc/letsencrypt/live/{{ endpoint.ssl_cert }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ endpoint.ssl_cert }}/privkey.pem;
-    include ssl-params.conf;
     location / {
         proxy_pass http://127.0.0.1:{{ endpoint.port }};
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_redirect http://127.0.0.1:{{ endpoint.port }} https://{{ endpoint.ssl_cert }};
+        proxy_redirect http://127.0.0.1:{{ endpoint.port }} http://{{ endpoint.server_name }};
     }
-    {% if endpoint.flower_port %}
-    location /flower {
-        rewrite ^/flower/(.*)$ /$1 break;
-        proxy_pass http://127.0.0.1:{{ endpoint.flower_port }};
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_redirect off;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-    }
-    {% endif %}
 }
 {% endfor %}

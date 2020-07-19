@@ -2,18 +2,8 @@
 # This role installs NGINX and configures it.
 - include_vars: secrets.yml
 
-# LetsEncrypt CertBot
-- name: Add Certbot apt repo
-  apt_repository:
-    repo: ppa:certbot/certbot
-
 - name: Update apt cache
   apt: update_cache=yes
-
-- name: Install Certbot
-  apt:
-    name: python-certbot-nginx
-    state: present
 
 # NGINX
 - name: Install nginx
@@ -24,13 +14,6 @@
   template:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
-    owner: www-data
-    group: www-data
-    mode: 0644
-- name: Copy nginx SSL params
-  template:
-    src: ssl-params.conf
-    dest: /etc/nginx/ssl-params.conf
     owner: www-data
     group: www-data
     mode: 0644
