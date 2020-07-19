@@ -1,11 +1,6 @@
 ---
 # Webserver default variables
 http_redirect_domains:
-  - camswarlinks.com
-  - www.camswarlinks.com
-  - whatsonmelb.fun
-  - www.whatsonmelb.fun
-  - api.whatsonmelb.fun
   - memories.ninja
   - www.memories.ninja
   - www.mattslinks.xyz
@@ -13,31 +8,16 @@ http_redirect_domains:
   - www.blogreader.com.au
   - blogreader.com.au
   - api.blogreader.com.au
-  - codeyourowntshirt.com
-  - api.codeyourowntshirt.com
-  - www.codeyourowntshirt.com
 
 https_redirects:
-  - name: Cams War Links (www to root)
-    server_name: www.camswarlinks.com
-    ssl_cert: www.camswarlinks.com
-    target: camswarlinks.com
   - name: Matt's Links (www to root)
     server_name: www.mattslinks.xyz
     ssl_cert: www.mattslinks.xyz
     target: mattslinks.xyz
-  - name: Whatson Melb (root to www)
-    server_name: whatsonmelb.fun
-    ssl_cert: whatsonmelb.fun
-    target: www.whatsonmelb.fun
   - name: Blog Reader (root to www)
     server_name: blogreader.com.au
     ssl_cert: blogreader.com.au
     target: www.blogreader.com.au
-  - name: tshirt (root to www)
-    server_name: codeyourowntshirt.com
-    ssl_cert: codeyourowntshirt.com
-    target: www.codeyourowntshirt.com
 
 https_endpoints:
   - name: Memories Ninja
@@ -50,23 +30,8 @@ https_endpoints:
     ssl_cert: mattslinks.xyz
     port: 8001
     flower_port: null
-  - name: Whatson Melb
-    server_name: api.whatsonmelb.fun
-    ssl_cert: api.whatsonmelb.fun
-    port: 8003
-    flower_port: 5553
-  - name: Cams War Links
-    server_name: camswarlinks.com
-    ssl_cert: camswarlinks.com
-    port: 8004
-    flower_port: null
   - name: Blog Reader Backend
     server_name: api.blogreader.com.au
     ssl_cert: api.blogreader.com.au
     port: 8005
-    flower_port: null
-  - name: Code Your Own Tshirt Backend
-    server_name: api.codeyourowntshirt.com
-    ssl_cert: api.codeyourowntshirt.com
-    port: 8006
     flower_port: null

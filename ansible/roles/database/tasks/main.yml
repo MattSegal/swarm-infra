@@ -30,24 +30,15 @@
   loop_control:
     loop_var: db
   with_items:
-    - name: whatson
-      owner: "{{ db_user_whatson }}"
-      password: "{{ db_password_whatson }}"
     - name: photos
       owner: "{{ db_user_photos }}"
       password: "{{ db_password_photos }}"
     - name: links
       owner: "{{ db_user_links }}"
       password: "{{ db_password_links }}"
-    - name: war
-      owner: "{{ db_user_war }}"
-      password: "{{ db_password_war }}"
     - name: reader
       owner: "{{ db_user_reader }}"
       password: "{{ db_password_reader }}"
-    - name: tshirt
-      owner: "{{ db_user_tshirt }}"
-      password: "{{ db_password_tshirt }}"
 
 - name: Restart postgresql
   service:

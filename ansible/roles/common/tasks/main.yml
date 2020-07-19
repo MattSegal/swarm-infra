@@ -33,12 +33,6 @@
       value: "{{ aws_secret_access_key }}"
     - key: DJANGO_SECRET_KEY
       value: "{{ django_secret_key }}"
-    - key: GEOCODING_API_KEY
-      value: "{{ geocoding_api_key }}"
-    - key: FLOWER_USER
-      value: "{{ flower_user }}"
-    - key: FLOWER_PASSWORD
-      value: "{{ flower_password }}"
     - key: GOOGLE_OAUTH2_KEY
       value: "{{ google_oauth_2_key }}"
     - key: GOOGLE_OAUTH2_SECRET
@@ -79,15 +73,6 @@
       papertrail_url: "{{ papertrail_url }}"
       papertrail_port: "{{ papertrail_port }}"
 
-    - prefix: WHATSON
-      raven: "{{ whatson_raven_dsn }}"
-      db_user: "{{ db_user_whatson }}"
-      db_password: "{{ db_password_whatson }}"
-      db_host: "167.99.78.141"
-      papertrail_hostname: "WhatsOn"
-      papertrail_url: "{{ papertrail_url }}"
-      papertrail_port: "{{ papertrail_port }}"
-
     - prefix: READER
       raven: "{{ reader_raven_dsn }}"
       db_user: "{{ db_user_reader }}"
@@ -96,21 +81,3 @@
       papertrail_hostname: "BlogReader"
       papertrail_url: "{{ papertrail_url }}"
       papertrail_port: "{{ papertrail_port }}"
-
-    - prefix: TSHIRT
-      raven: "{{ tshirt_raven_dsn }}"
-      db_user: "{{ db_user_tshirt }}"
-      db_password: "{{ db_password_tshirt }}"
-      db_host: "167.99.78.141"
-      papertrail_hostname: "tshirt"
-      papertrail_url: "{{ papertrail_url }}"
-      papertrail_port: "{{ papertrail_port }}"
-
-    - prefix: WAR
-      raven: ""
-      db_user: "{{ db_user_war }}"
-      db_password: "{{ db_password_war }}"
-      db_host: "167.99.78.141"
-      papertrail_hostname: ""
-      papertrail_url: ""
-      papertrail_port: ""

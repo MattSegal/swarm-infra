@@ -1,9 +1,6 @@
 ---
 # Postgres default variables
 databases:
-  - whatson
   - photos
   - links
-  - war
   - reader
-  - tshirt
