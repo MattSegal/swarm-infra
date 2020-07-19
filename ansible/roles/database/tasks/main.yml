@@ -14,14 +14,14 @@
 - name: Copy postgresql config
   template:
     src: postgresql.conf
-    dest: /etc/postgresql/10/main/postgresql.conf
+    dest: /etc/postgresql/9.5/main/postgresql.conf
     owner: postgres
     group: postgres
     mode: 0644
 - name: Copy postgres hosts config
   template:
     src: pg_hba.conf
-    dest: /etc/postgresql/10/main/pg_hba.conf
+    dest: /etc/postgresql/9.5/main/pg_hba.conf
     owner: postgres
     group: postgres
     mode: 0640
