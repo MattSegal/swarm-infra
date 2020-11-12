@@ -16,6 +16,13 @@ server {
 server {
     listen 80;
     listen [::]:80;
+    server_name api.blogreader.com.au;
+    return 301 http://blogreader.com.au$request_uri;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
     server_name www.memories.ninja;
     return 301 http://memories.ninja$request_uri;
 }
