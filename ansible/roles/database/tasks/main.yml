@@ -16,3 +16,6 @@
     - name: reader
       owner: "{{ db_user_reader }}"
       password: "{{ db_password_reader }}"
+    - name: wombat
+      owner: "{{ db_user_wombat }}"
+      password: "{{ db_password_wombat }}"
